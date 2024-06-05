@@ -5,18 +5,31 @@
  *  <Options/Input> : <User Input>
  *  <Nothing/Error Message>
  *  
+ *  
+ *  Alias list:
+ *  
+ *  set_...
+ *  line_...
+ *  top_border_...
+ *  default_...
+ *  template_...
+ *  
+ *  important functions will use normal C# syntax
+ *  
  */
 
 public class Menu
 {
+    private int top_border_size;
     private string top_border;
-    private string message;
+    public string message;
     private string[] options; // options are the expected inputs
     // private string[] expected_inputs;
     private string user_input;
 
     public Menu(string message, string[]options)
     {
+        top_border_size = 30;
         top_border = default_line();
         this.message=message;
         this.options=options;
@@ -24,6 +37,7 @@ public class Menu
     }
     public Menu()
     {
+        top_border_size = 30;
         top_border = default_line();
         message = "test_message";
         options = new string[3] { "option1", "option2", "option3" };
@@ -47,7 +61,7 @@ public class Menu
     {
         this.top_border=top_border; // syntax:? Menu.set_top_border(Menu.line_make("=",100));
     }
-    public string line_make(string str, int length)
+    public string line_maker(string str, int length)
     {
         string answer="";
         for(int i=0;i<length;i++)
@@ -96,16 +110,25 @@ public class Menu
             str+="=";
         return str;
     }
-    public void template_yes_no_question(string message)
-    {
-        this.message=message;
-        options=new string[2]{"yes","no"};
-        user_input="";
-    }
-    public static Menu YesNoQuestion(string message)
+    // public void template_yes_no_question(string message)
+    // {
+    //     this.message=message;
+    //     options=new string[2]{"yes","no"};
+    //     user_input="";
+    // }
+    // public static Menu YesNoQuestion(string message)
+    // {
+    //     Menu output=new Menu();
+    //     output.template_yes_no_question(message);
+    //     return output;
+    //     // return new Menu(message)=new Menu().template_yes_no_question(message);
+    // }
+    public static Menu template_yes_no_question(string message)
     {
         Menu output=new Menu();
-        output.template_yes_no_question(message);
+        output.message=message;
+        output.options=new string[2]{"yes","no"};
+        output.user_input="";
         return output;
         // return new Menu(message)=new Menu().template_yes_no_question(message);
     }
@@ -120,12 +143,21 @@ public class Menu
     public string line_maker(string prefix, string inner, string suffix)
     {
         string str="";
-        while(str.Length<30)
+        while(str.Length<top_border_size)
             str+=inner;
         return prefix+str+suffix;
     }
     public string line_maker(string edges, string inner)
     {
         return line_maker(edges,inner,edges);
+    }
+    public void Print()
+    {
+        Console.Write(this.ToString());
+    }
+    public void set_top_border_to_default()
+    {
+        top_border_size = 30;
+        top_border = default_line();
     }
 }
