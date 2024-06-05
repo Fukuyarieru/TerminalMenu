@@ -109,4 +109,23 @@ public class Menu
         return output;
         // return new Menu(message)=new Menu().template_yes_no_question(message);
     }
+    public static Menu template_custom_constructor(string message, int options_amount)
+    {
+        Menu output=new Menu(message,new string[options_amount]);
+        for(int i=0;i<options_amount;i++)
+            output.options[i]="";
+        return output;
+        // return new Menu(message)=new Menu().template_custom_constructor(message,options_amount);
+    }
+    public string line_maker(string prefix, string inner, string suffix)
+    {
+        string str="";
+        while(str.Length<30)
+            str+=inner;
+        return prefix+str+suffix;
+    }
+    public string line_maker(string edges, string inner)
+    {
+        return line_maker(edges,inner,edges);
+    }
 }
