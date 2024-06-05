@@ -33,7 +33,6 @@ public class Menu
     {
         Console.WriteLine(ToString());
         Answer();
-
     }
     // public bool repeat_on_error()...
     public void Answer(string user_input)
@@ -69,7 +68,7 @@ public class Menu
         // if(user_input.Length<size)
         //     if(user_input.CompareTo("0")>0 && user_input.CompareTo(options.Length)<0)
         //         return true; // if input was a number of an option among the options
-        if(user_input.CompareTo("0")>0 && user_input.CompareTo(options.Length.ToString())<0)
+        if(user_input.CompareTo("1")>=0 && user_input.CompareTo(options.Length.ToString())<=0)
             return true;
         for(int i=0;i<options.Length;i++)
             if(options[i].ToLower().Equals(user_input.ToLower()))
@@ -96,5 +95,18 @@ public class Menu
         for(int i=0;i<30;i++)
             str+="=";
         return str;
+    }
+    public void template_yes_no_question(string message)
+    {
+        this.message=message;
+        options=new string[2]{"yes","no"};
+        user_input="";
+    }
+    public static Menu YesNoQuestion(string message)
+    {
+        Menu output=new Menu();
+        output.template_yes_no_question(message);
+        return output;
+        // return new Menu(message)=new Menu().template_yes_no_question(message);
     }
 }
